@@ -122,7 +122,7 @@ respostas_por_categoria = {
     "amor": [
         "O amor que você busca está na sombra de quem você costumava ser.",
         "O desejo está contaminado. Purifique-se antes de pedir reciprocidade.",
-        "Ele pensa, mas não com afeto. Apenas com saudade do controle.",
+        "Elx pensa, mas não com afeto. Apenas com saudade do controle.",
         "Você ama mais a ideia do que o real. E o real já partiu.",
         "Elx observa de longe, mas o coração está em outro tempo.",
         "O que você deseja está deveras mole..."
