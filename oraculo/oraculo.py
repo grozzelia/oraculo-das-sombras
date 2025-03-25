@@ -13,6 +13,7 @@ st.markdown("""
         html, body, .stApp, * {
             background-color: #000000 !important;
             color: #39FF14 !important;
+            font-family:'UnifrakturCook', cursive !important;
         }
 
         h1 {
