@@ -8,18 +8,18 @@ st.set_page_config(page_title="oráculo das sombras", layout="centered", page_ic
 # --- ESTILO VISUAL ---
 st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
         html, body, .stApp, * {
             background-color: #000000 !important;
             color: #39FF14 !important;
-            font-family: 'UnifrakturCook', cursive !important;
+            font-family: 'MedievalSharp', cursive !important;
         }
 
         h1 {
-            font-family: 'UnifrakturCook', cursive !important;
-            font-size: 48px !important;
+            font-size: 40px !important;
             text-align: center;
+            margin-bottom: 0;
         }
 
         .stTextInput > div > div > input {
@@ -45,7 +45,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- TÍTULO ---
-st.markdown("☠ Oráculo das Sombras ☠")
+st.markdown("<h1>👾 oráculo das sombras 👾</h1>", unsafe_allow_html=True)
 
 # --- CONTADOR DE ALMAS ---
 contador_path = "contador.txt"
@@ -68,7 +68,11 @@ if "ultima_visita" not in st.session_state:
 else:
     contador = carregar_contador()
 
-st.markdown(f"<p style='text-align:center;'>👻 {contador} almas já consultaram o oráculo...</p>", unsafe_allow_html=True)
+st.markdown(f"""
+    <div style='text-align:center; font-size:20px; margin-top:0px; margin-bottom:30px'>
+        👻 {contador} almas já consultaram o oráculo...
+    </div>
+""", unsafe_allow_html=True)
 
 # --- HUMORES ---
 humores = {
@@ -84,7 +88,7 @@ humor_hoje = random.choice(list(humores.keys()))
 respostas_por_categoria = {
     "amor": [
         "O amor está doente, mas ainda respira.",
-        "Ele não pensa mais em você... só quando chove.",
+        "Elx não pensa mais em você... só quando chove.",
         "Seu coração lembra do que sua mente quer esquecer."
     ],
     "trabalho": [
@@ -164,4 +168,3 @@ if pergunta:
 
     st.markdown("---")
     st.markdown(f"🔎 *{pergunta}*  \n👁👁 {resposta_final}")
-
