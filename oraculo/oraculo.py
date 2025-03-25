@@ -11,8 +11,8 @@ st.markdown("""
         @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
         html, body, .stApp {
-            background-color: #000000 !important;
-            color: #39FF14 !important;
+            background-color: #3e2c41 !important;
+            color: #baffc9 !important;
             font-family: 'Courier New' !important;
         }
 
@@ -21,20 +21,23 @@ st.markdown("""
             font-size: 40px !important;
             text-align: center;
             margin-bottom: 0;
+            color: #baffc9 !important;
+            text-shadow: 1px 1px 2px black;
         }
 
         .stTextInput > div > div > input {
-            color: #39FF14 !important;
-            background-color: #111111 !important;
-            border: 1px solid #39FF14 !important;
+            color: #baffc9 !important;
+            background-color: #4e3b53 !important;
+            border: 1px solid #baffc9 !important;
             font-size: 18px !important;
             font-family: 'Courier New' !important;
         }
 
         .stTextInput label {
-            color: #39FF14 !important;
+            color: #baffc9 !important;
             font-size: 18px !important;
             font-family: 'Courier New' !important;
+            text-shadow: 1px 1px 2px black;
         }
 
         .block-container {
@@ -44,15 +47,15 @@ st.markdown("""
         .stMarkdown {
             font-size: 20px;
             font-family: 'Courier New' !important;
+            text-shadow: 1px 1px 2px black;
         }
 
-        /* CORRIGINDO BARRA BRANCA */
         .viewerBadge_container__1QSob,
         .stStatusWidget,
         header,
         .css-18ni7ap {
-            background-color: #000000 !important;
-            color: #39FF14 !important;
+            background-color: #3e2c41 !important;
+            color: #baffc9 !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -100,49 +103,46 @@ humor_hoje = random.choice(list(humores.keys()))
 # --- RESPOSTAS POR CATEGORIA ---
 respostas_por_categoria = {
     "amor": [
-        "O amor está doente, mas ainda respira.",
-        "Elx não pensa mais em você... só quando chove.",
-        "Seu coração lembra do que sua mente quer esquecer."
+        "O amor que você busca está na sombra de quem você costumava ser.",
+        "O desejo está contaminado. Purifique-se antes de pedir reciprocidade.",
+        "Ele pensa, mas não com afeto. Apenas com saudade do controle.",
+        "Você ama mais a ideia do que o real. E o real já partiu.",
+        "Elx observa de longe, mas o coração está em outro tempo."
     ],
     "trabalho": [
-        "Seu esforço sustenta um castelo de cartas.",
-        "Você trabalha demais pra alguém que sonha tão pouco.",
-        "A riqueza virá, mas ela cobra caro."
+        "Você não trabalha: você sobrevive mascarado de produtividade.",
+        "A promoção que você deseja não comprará sua paz.",
+        "A riqueza está próxima, mas virá travestida de sacrífio.",
+        "Seu talento está sendo vendido a preço de banana pela sua zona de conforto."
     ],
     "vida": [
-        "Você já escolheu... só não percebeu ainda.",
-        "Tudo que você sente é a vida te empurrando.",
-        "Não há caminho certo — só mais escuridão com passos."
+        "Tudo está conectado, mas você insiste em olhar só pro que brilha.",
+        "A vida quer te empurrar pra uma porta... que você está com medo de abrir.",
+        "Você é feito(a) de repetições, mas uma pequena quebra pode te libertar.",
+        "A escolha certa é aquela que assusta e atrai ao mesmo tempo."
     ],
     "morte": [
-        "Você não morre quando para de respirar... mas quando esquecem seu nome.",
-        "O fim já começou — você só está atrasado.",
-        "A morte te observa com tédio. Ainda não é sua vez."
+        "A morte está entediada. Não você.",
+        "Seu medo da morte está matando sua vida."
     ],
     "tempo": [
-        "O céu está instável... como suas emoções.",
-        "Vai chover, sim. Mas só por dentro.",
-        "O clima não decide. E você, já decidiu?"
+        "O clima espelha seu caos interior. Vai chover quando você quebrar."
     ],
     "data": [
-        f"Hoje é {datetime.now().strftime('%A, %d de %B de %Y')}. Se isso importa...",
-        "O tempo é uma prisão com perfume de rotina.",
-        "Os dias passam. Você permanece?"
+        f"Hoje é {datetime.now().strftime('%A, %d de %B de %Y')}. E você ainda está aqui.",
+        "A data importa pouco para o destino que você está moldando."
     ],
     "tecnologia": [
-        "As máquinas vão dominar. Mas com paciência.",
-        "Seu computador te odeia, mas com respeito.",
-        "A IA observa. Ela já entendeu quem você é."
+        "A tecnologia espelha sua ansiedade, não a resolve.",
+        "Seu celular sabe mais sobre você do que sua família."
     ],
     "saude": [
-        "Você não está quebrado. Só está no lugar errado.",
-        "Até a escuridão tem pausas. Faça a sua.",
-        "Seu corpo fala o que sua alma não ousa dizer."
+        "Seu corpo implora por escuta, não por remédios.",
+        "Você se trata como um erro. Comece se tratando como um lar."
     ],
     "desconhecido": [
-        "Você fez a pergunta errada. E agora é tarde.",
-        "O Oráculo não reconhece sua dúvida, mas reconhece você.",
-        "Silêncio. A resposta virá em outro sonho."
+        "O oráculo se cala. E no silêncio, você deve escutar.",
+        "A resposta virá quando você parar de procurar."
     ]
 }
 
@@ -164,7 +164,7 @@ def identificar_categoria(pergunta):
     return "desconhecido"
 
 # --- INTERFACE ---
-pergunta = st.text_input("👹 Faça sua pergunta:")
+pergunta = st.text_input("👹 Sua pergunta:")
 
 if pergunta:
     categoria = identificar_categoria(pergunta)
@@ -181,4 +181,3 @@ if pergunta:
 
     st.markdown("---")
     st.markdown(f"{resposta_final}")
-
