@@ -45,10 +45,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- IMAGENS MÍSTICAS LATERAIS ---
-img_esquerda = "https://i.imgur.com/2W5dUu2.png"  # sapo psicodélico
-img_direita = "https://i.imgur.com/mkSfH6j.png"   # mago brisado
-
 st.markdown("<h1 style='text-align: center;'>☠ Oráculo das Sombras ☠</h1>", unsafe_allow_html=True)
 contador_path = "contador.txt"
 
@@ -71,7 +67,7 @@ if "ultima_visita" not in st.session_state:
 else:
     contador = carregar_contador()
 
-st.markdown(f"<p style='text-align:center;'>🧍 {contador} almas já consultaram o Oráculo...</p>", unsafe_allow_html=True)
+st.markdown(f"<p style='text-align:center;'>👻 {contador} almas já consultaram o oráculo...</p>", unsafe_allow_html=True)
 
 # --- HUMORES ---
 humores = {
@@ -149,13 +145,6 @@ def identificar_categoria(pergunta):
     if any(x in p for x in ["cansado", "ansiedade", "triste", "depress", "dor", "doença"]): return "saude"
     return "desconhecido"
 
-# --- INTERFACE COM IMAGENS LATERAIS ---
-st.markdown("<div class='pergunta-container'>", unsafe_allow_html=True)
-st.markdown(f"<img class='lado' src='{img_esquerda}'>", unsafe_allow_html=True)
-pergunta = st.text_input("✉️ Faça sua pergunta ao Oráculo:", key="pergunta")
-st.markdown(f"<img class='lado' src='{img_direita}'>", unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)
-
 # --- RESPOSTA ÚNICA POR CATEGORIA ---
 if pergunta:
     categoria = identificar_categoria(pergunta)
@@ -171,4 +160,4 @@ if pergunta:
     resposta_final = humores[humor_hoje](resposta)
 
     st.markdown("---")
-    st.markdown(f"❓ *{pergunta}*  \n☠ {resposta_final}")
+    st.markdown(f"🤠 *{pergunta}*  \n🔥 {resposta_final}")
