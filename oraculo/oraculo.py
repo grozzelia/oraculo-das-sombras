@@ -16,39 +16,40 @@ st.markdown("""
             font-family: 'UnifrakturCook', cursive !important;
         }
 
+        h1 {
+            font-family: 'UnifrakturCook', cursive !important;
+            font-size: 48px !important;
+            text-align: center;
+        }
+
         .stTextInput > div > div > input {
             color: #39FF14;
             background-color: #111111;
             border: 1px solid #39FF14;
+            font-size: 20px !important;
         }
 
         .stTextInput label {
             color: #39FF14;
+            font-size: 20px !important;
         }
 
-        .pergunta-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .block-container {
+            padding-top: 2rem;
         }
 
-        .lado {
-            width: 80px;
-            height: 80px;
-            margin: 0 20px;
-        }
-
-        .center-box {
-            flex-grow: 1;
-            max-width: 500px;
+        .stMarkdown {
+            font-size: 22px;
         }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h1 style='text-align: center;'>☠ Oráculo das Sombras ☠</h1>", unsafe_allow_html=True)
-contador_path = "contador.txt"
+# --- TÍTULO ---
+st.markdown("☠ Oráculo das Sombras ☠")
 
 # --- CONTADOR DE ALMAS ---
+contador_path = "contador.txt"
+
 def carregar_contador():
     if not os.path.exists(contador_path):
         with open(contador_path, "w") as f:
@@ -72,14 +73,14 @@ st.markdown(f"<p style='text-align:center;'>👻 {contador} almas já consultara
 # --- HUMORES ---
 humores = {
     "zombeteiro": lambda r: f"{r}  >:)",
-    "fatalista": lambda r: f"{r}  (o fim está mais perto do que pensa...)",
-    "críptico": lambda r: f"{r}  ¯\\_(ツ)_/¯",
-    "frio": lambda r: f"{r}  [análise concluída]",
-    "emocional": lambda r: f"{r}  ;-("
+    "fatalista": lambda r: f"{r}  (não adianta fugir...)",
+    "críptico": lambda r: f"{r}  :::",
+    "frio": lambda r: f"{r}  [análise encerrada]",
+    "emocional": lambda r: f"{r}  :-|"
 }
 humor_hoje = random.choice(list(humores.keys()))
 
-# --- BANCO DE RESPOSTAS ---
+# --- RESPOSTAS POR CATEGORIA ---
 respostas_por_categoria = {
     "amor": [
         "O amor está doente, mas ainda respira.",
@@ -130,13 +131,13 @@ respostas_por_categoria = {
 
 # --- TRACKING DE RESPOSTAS USADAS ---
 if "respostas_usadas" not in st.session_state:
-    st.session_state.respostas_usadas = {categoria: [] for categoria in respostas_por_categoria}
+    st.session_state.respostas_usadas = {cat: [] for cat in respostas_por_categoria}
 
-# --- IDENTIFICADOR DE CATEGORIA ---
+# --- CATEGORIZADOR DE PERGUNTA ---
 def identificar_categoria(pergunta):
     p = pergunta.lower()
     if any(x in p for x in ["amor", "relacionamento", "namoro", "ele", "ela"]): return "amor"
-    if any(x in p for x in ["trabalho", "emprego", "carreira", "dinheiro", "grana"]): return "trabalho"
+    if any(x in p for x in ["trabalho", "emprego", "carreira", "dinheiro", "grana", "rico", "rica"]): return "trabalho"
     if any(x in p for x in ["vida", "sentido", "caminho", "escolha"]): return "vida"
     if any(x in p for x in ["morte", "fim", "morrer", "acabar"]): return "morte"
     if any(x in p for x in ["chuva", "clima", "tempo", "vai chover"]): return "tempo"
@@ -145,7 +146,9 @@ def identificar_categoria(pergunta):
     if any(x in p for x in ["cansado", "ansiedade", "triste", "depress", "dor", "doença"]): return "saude"
     return "desconhecido"
 
-# --- RESPOSTA ÚNICA POR CATEGORIA ---
+# --- INTERFACE ---
+pergunta = st.text_input("🔥 Faça sua pergunta ao oráculo:")
+
 if pergunta:
     categoria = identificar_categoria(pergunta)
     usadas = st.session_state.respostas_usadas[categoria]
@@ -160,4 +163,5 @@ if pergunta:
     resposta_final = humores[humor_hoje](resposta)
 
     st.markdown("---")
-    st.markdown(f"🤠 *{pergunta}*  \n🔥 {resposta_final}")
+    st.markdown(f"🔎 *{pergunta}*  \n👁👁 {resposta_final}")
+
