@@ -3,7 +3,7 @@ import random
 import os
 from datetime import datetime
 
-st.set_page_config(page_title="oráculo das sombras", layout="centered", page_icon="👾")
+st.set_page_config(page_title="Oráculo das Sombras", layout="centered", page_icon="☠️")
 
 # --- ESTILO VISUAL ---
 st.markdown("""
@@ -13,43 +13,46 @@ st.markdown("""
         html, body, .stApp, * {
             background-color: #000000 !important;
             color: #39FF14 !important;
-            font-family:'UnifrakturCook', cursive !important;
-        }
-
-        h1 {
             font-family: 'UnifrakturCook', cursive !important;
-            font-size: 48px !important;
-            text-align: center;
         }
 
         .stTextInput > div > div > input {
             color: #39FF14;
             background-color: #111111;
             border: 1px solid #39FF14;
-            font-size: 20px !important;
         }
 
         .stTextInput label {
             color: #39FF14;
-            font-size: 20px !important;
         }
 
-        .block-container {
-            padding-top: 2rem;
+        .pergunta-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .stMarkdown {
-            font-size: 22px;
+        .lado {
+            width: 80px;
+            height: 80px;
+            margin: 0 20px;
+        }
+
+        .center-box {
+            flex-grow: 1;
+            max-width: 500px;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# --- TÍTULO ---
-st.markdown("☠ Oráculo das Sombras ☠")
+# --- IMAGENS MÍSTICAS LATERAIS ---
+img_esquerda = "https://i.imgur.com/2W5dUu2.png"  # sapo psicodélico
+img_direita = "https://i.imgur.com/mkSfH6j.png"   # mago brisado
 
-# --- CONTADOR DE ALMAS ---
+st.markdown("<h1 style='text-align: center;'>☠ Oráculo das Sombras ☠</h1>", unsafe_allow_html=True)
 contador_path = "contador.txt"
 
+# --- CONTADOR DE ALMAS ---
 def carregar_contador():
     if not os.path.exists(contador_path):
         with open(contador_path, "w") as f:
@@ -68,19 +71,19 @@ if "ultima_visita" not in st.session_state:
 else:
     contador = carregar_contador()
 
-st.markdown(f"<p style='text-align:center;'>👻 {contador} almas já consultaram o oráculo...</p>", unsafe_allow_html=True)
+st.markdown(f"<p style='text-align:center;'>🧍 {contador} almas já consultaram o Oráculo...</p>", unsafe_allow_html=True)
 
 # --- HUMORES ---
 humores = {
     "zombeteiro": lambda r: f"{r}  >:)",
-    "fatalista": lambda r: f"{r}  (não adianta fugir...)",
-    "críptico": lambda r: f"{r}  :::",
-    "frio": lambda r: f"{r}  [análise encerrada]",
-    "emocional": lambda r: f"{r}  :-|"
+    "fatalista": lambda r: f"{r}  (o fim está mais perto do que pensa...)",
+    "críptico": lambda r: f"{r}  ¯\\_(ツ)_/¯",
+    "frio": lambda r: f"{r}  [análise concluída]",
+    "emocional": lambda r: f"{r}  ;-("
 }
 humor_hoje = random.choice(list(humores.keys()))
 
-# --- RESPOSTAS POR CATEGORIA ---
+# --- BANCO DE RESPOSTAS ---
 respostas_por_categoria = {
     "amor": [
         "O amor está doente, mas ainda respira.",
@@ -131,13 +134,13 @@ respostas_por_categoria = {
 
 # --- TRACKING DE RESPOSTAS USADAS ---
 if "respostas_usadas" not in st.session_state:
-    st.session_state.respostas_usadas = {cat: [] for cat in respostas_por_categoria}
+    st.session_state.respostas_usadas = {categoria: [] for categoria in respostas_por_categoria}
 
-# --- CATEGORIZADOR DE PERGUNTA ---
+# --- IDENTIFICADOR DE CATEGORIA ---
 def identificar_categoria(pergunta):
     p = pergunta.lower()
     if any(x in p for x in ["amor", "relacionamento", "namoro", "ele", "ela"]): return "amor"
-    if any(x in p for x in ["trabalho", "emprego", "carreira", "dinheiro", "grana", "rico", "rica"]): return "trabalho"
+    if any(x in p for x in ["trabalho", "emprego", "carreira", "dinheiro", "grana"]): return "trabalho"
     if any(x in p for x in ["vida", "sentido", "caminho", "escolha"]): return "vida"
     if any(x in p for x in ["morte", "fim", "morrer", "acabar"]): return "morte"
     if any(x in p for x in ["chuva", "clima", "tempo", "vai chover"]): return "tempo"
@@ -146,9 +149,14 @@ def identificar_categoria(pergunta):
     if any(x in p for x in ["cansado", "ansiedade", "triste", "depress", "dor", "doença"]): return "saude"
     return "desconhecido"
 
-# --- INTERFACE ---
-pergunta = st.text_input("🔥Faça sua pergunta ao oráculo:")
+# --- INTERFACE COM IMAGENS LATERAIS ---
+st.markdown("<div class='pergunta-container'>", unsafe_allow_html=True)
+st.markdown(f"<img class='lado' src='{img_esquerda}'>", unsafe_allow_html=True)
+pergunta = st.text_input("✉️ Faça sua pergunta ao Oráculo:", key="pergunta")
+st.markdown(f"<img class='lado' src='{img_direita}'>", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
 
+# --- RESPOSTA ÚNICA POR CATEGORIA ---
 if pergunta:
     categoria = identificar_categoria(pergunta)
     usadas = st.session_state.respostas_usadas[categoria]
@@ -163,4 +171,4 @@ if pergunta:
     resposta_final = humores[humor_hoje](resposta)
 
     st.markdown("---")
-    st.markdown(f"🔎 *{pergunta}*  \n👁👁 {resposta_final}")
+    st.markdown(f"❓ *{pergunta}*  \n☠ {resposta_final}")
