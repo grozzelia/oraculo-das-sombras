@@ -125,6 +125,7 @@ respostas_por_categoria = {
         "Ele pensa, mas não com afeto. Apenas com saudade do controle.",
         "Você ama mais a ideia do que o real. E o real já partiu.",
         "Elx observa de longe, mas o coração está em outro tempo."
+        "O que você deseja está deveras mole..."
     ],
     "trabalho": [
         "Você não trabalha: você sobrevive mascarado de produtividade.",
