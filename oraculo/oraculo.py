@@ -3,7 +3,7 @@ import random
 import os
 from datetime import datetime
 
-st.set_page_config(page_title="Oráculo das Sombras", layout="centered", page_icon="☠️")
+st.set_page_config(page_title="oráculo das sombras", layout="centered", page_icon="👾")
 
 # --- ESTILO VISUAL ---
 st.markdown("""
