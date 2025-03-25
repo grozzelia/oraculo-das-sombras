@@ -13,7 +13,7 @@ st.markdown("""
         html, body, .stApp {
             background-color: #000000 !important;
             color: #39FF14 !important;
-            font-family: sans-serif !important;
+            font-family: 'Fira Code' !important;
         }
 
         h1 {
@@ -28,13 +28,13 @@ st.markdown("""
             background-color: #111111 !important;
             border: 1px solid #39FF14 !important;
             font-size: 18px !important;
-            font-family: sans-serif !important;
+            font-family: 'Fira Code' !important;
         }
 
         .stTextInput label {
             color: #39FF14 !important;
             font-size: 18px !important;
-            font-family: sans-serif !important;
+            font-family: 'Fira Code' !important;
         }
 
         .block-container {
@@ -43,7 +43,7 @@ st.markdown("""
 
         .stMarkdown {
             font-size: 20px;
-            font-family: sans-serif !important;
+            font-family: 'Fira Code' !important;
         }
 
         /* CORRIGINDO BARRA BRANCA */
