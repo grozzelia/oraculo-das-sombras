@@ -8,12 +8,12 @@ st.set_page_config(page_title="oráculo das sombras", layout="centered", page_ic
 # --- ESTILO VISUAL ---
 st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Fira+Code&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
         html, body, .stApp {
             background-color: #000000 !important;
             color: #39FF14 !important;
-            font-family: 'Fira Code', monospace !important;
+            font-family: sans-serif !important;
         }
 
         h1 {
@@ -24,17 +24,17 @@ st.markdown("""
         }
 
         .stTextInput > div > div > input {
-            color: #39FF14;
-            background-color: #111111;
-            border: 1px solid #39FF14;
-            font-size: 20px !important;
-            font-family: 'Fira Code', monospace !important;
+            color: #39FF14 !important;
+            background-color: #111111 !important;
+            border: 1px solid #39FF14 !important;
+            font-size: 18px !important;
+            font-family: sans-serif !important;
         }
 
         .stTextInput label {
-            color: #39FF14;
-            font-size: 20px !important;
-            font-family: 'Fira Code', monospace !important;
+            color: #39FF14 !important;
+            font-size: 18px !important;
+            font-family: sans-serif !important;
         }
 
         .block-container {
@@ -42,8 +42,17 @@ st.markdown("""
         }
 
         .stMarkdown {
-            font-size: 22px;
-            font-family: 'Fira Code', monospace !important;
+            font-size: 20px;
+            font-family: sans-serif !important;
+        }
+
+        /* CORRIGINDO BARRA BRANCA */
+        .viewerBadge_container__1QSob,
+        .stStatusWidget,
+        header,
+        .css-18ni7ap {
+            background-color: #000000 !important;
+            color: #39FF14 !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -73,7 +82,7 @@ else:
     contador = carregar_contador()
 
 st.markdown(f"""
-    <div style='text-align:center; font-size:20px; margin-top:0px; margin-bottom:30px'>
+    <div style='text-align:center; font-size:18px; margin-top:0px; margin-bottom:30px'>
         👻 {contador} almas já consultaram o oráculo...
     </div>
 """, unsafe_allow_html=True)
@@ -92,7 +101,7 @@ humor_hoje = random.choice(list(humores.keys()))
 respostas_por_categoria = {
     "amor": [
         "O amor está doente, mas ainda respira.",
-        "Ele não pensa mais em você... só quando chove.",
+        "Elx não pensa mais em você... só quando chove.",
         "Seu coração lembra do que sua mente quer esquecer."
     ],
     "trabalho": [
@@ -155,7 +164,7 @@ def identificar_categoria(pergunta):
     return "desconhecido"
 
 # --- INTERFACE ---
-pergunta = st.text_input("🕯 Faça sua pergunta ao oráculo:")
+pergunta = st.text_input("👹 Faça sua pergunta:")
 
 if pergunta:
     categoria = identificar_categoria(pergunta)
@@ -171,4 +180,5 @@ if pergunta:
     resposta_final = humores[humor_hoje](resposta)
 
     st.markdown("---")
-    st.markdown(f"🔎 *{pergunta}*  \n🔥{resposta_final}")
+    st.markdown(f"{resposta_final}")
+
