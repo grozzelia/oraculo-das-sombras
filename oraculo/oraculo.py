@@ -5,7 +5,6 @@ import locale
 import requests
 from datetime import datetime
 
-locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
 
 st.set_page_config(page_title="oráculo das sombras", layout="centered", page_icon="👾")
 
