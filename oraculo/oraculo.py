@@ -1,3 +1,32 @@
+st.markdown(
+    """
+    <style>
+        body {
+            background-color: #000000;
+        }
+
+        .stApp {
+            background-color: #000000;
+        }
+
+        h1, p, label, .stMarkdown {
+            color: #39FF14 !important;
+        }
+
+        .stTextInput > div > div > input {
+            color: #39FF14;
+            background-color: #111111;
+            border: 1px solid #39FF14;
+        }
+
+        .stTextInput label {
+            color: #39FF14;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 import streamlit as st
 import random
 import os
