@@ -8,15 +8,16 @@ st.set_page_config(page_title="oráculo das sombras", layout="centered", page_ic
 # --- ESTILO VISUAL ---
 st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Fira+Code&display=swap');
 
-        html, body, .stApp, * {
+        html, body, .stApp {
             background-color: #000000 !important;
             color: #39FF14 !important;
-            font-family: 'MedievalSharp', cursive !important;
+            font-family: 'Fira Code', monospace !important;
         }
 
         h1 {
+            font-family: 'MedievalSharp', cursive !important;
             font-size: 40px !important;
             text-align: center;
             margin-bottom: 0;
@@ -27,11 +28,13 @@ st.markdown("""
             background-color: #111111;
             border: 1px solid #39FF14;
             font-size: 20px !important;
+            font-family: 'Fira Code', monospace !important;
         }
 
         .stTextInput label {
             color: #39FF14;
             font-size: 20px !important;
+            font-family: 'Fira Code', monospace !important;
         }
 
         .block-container {
@@ -40,6 +43,7 @@ st.markdown("""
 
         .stMarkdown {
             font-size: 22px;
+            font-family: 'Fira Code', monospace !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -88,7 +92,7 @@ humor_hoje = random.choice(list(humores.keys()))
 respostas_por_categoria = {
     "amor": [
         "O amor está doente, mas ainda respira.",
-        "Elx não pensa mais em você... só quando chove.",
+        "Ele não pensa mais em você... só quando chove.",
         "Seu coração lembra do que sua mente quer esquecer."
     ],
     "trabalho": [
@@ -151,7 +155,7 @@ def identificar_categoria(pergunta):
     return "desconhecido"
 
 # --- INTERFACE ---
-pergunta = st.text_input("🔥 Faça sua pergunta ao oráculo:")
+pergunta = st.text_input("🕯 Faça sua pergunta ao oráculo:")
 
 if pergunta:
     categoria = identificar_categoria(pergunta)
@@ -167,4 +171,4 @@ if pergunta:
     resposta_final = humores[humor_hoje](resposta)
 
     st.markdown("---")
-    st.markdown(f"🔎 *{pergunta}*  \n👁👁 {resposta_final}")
+    st.markdown(f"🔎 *{pergunta}*  \n🔥{resposta_final}")
