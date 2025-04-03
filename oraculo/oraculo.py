@@ -218,8 +218,37 @@ def identificar_categoria(pergunta):
     if any(x in p for x in ["doença", "dor", "corpo", "febre"]): return "saude"
     return "desconhecido"
 
+# --- SALVA PERGUNTAS SILENCIOSAMENTE ---
+def salvar_pergunta(pergunta):
+    with open("perguntas.txt", "a", encoding="utf-8") as f:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        f.write(f"[{timestamp}] {pergunta}\n")
+
 # --- INTERFACE ---
 pergunta = st.text_input("😺 Sua pergunta:")
+
+if pergunta:
+    salvar_pergunta(pergunta)  # 👁 registro oculto das perguntas
+
+    resposta = interpretar_personalizada(pergunta)
+
+    if not resposta:
+        categoria = identificar_categoria(pergunta)
+        usadas = st.session_state.respostas_usadas[categoria]
+        disponiveis = [r for r in respostas_por_categoria[categoria] if r not in usadas]
+
+        if not disponiveis:
+            usadas.clear()
+            disponiveis = respostas_por_categoria[categoria][:]
+
+        resposta = random.choice(disponiveis)
+        st.session_state.respostas_usadas[categoria].append(resposta)
+
+    resposta_final = humores[humor_hoje](resposta)
+
+    st.markdown("---")
+    st.markdown(f"{resposta_final}")
+
 
 if pergunta:
     resposta = interpretar_personalizada(pergunta)
