@@ -252,22 +252,4 @@ if pergunta:
     st.markdown("---")
     st.markdown(f"{resposta_final}")
 
-if pergunta:
-    resposta = interpretar_personalizada(pergunta)
 
-    if not resposta:
-        categoria = identificar_categoria(pergunta)
-        usadas = st.session_state.respostas_usadas[categoria]
-        disponiveis = [r for r in respostas_por_categoria[categoria] if r not in usadas]
-
-        if not disponiveis:
-            usadas.clear()
-            disponiveis = respostas_por_categoria[categoria][:]
-
-        resposta = random.choice(disponiveis)
-        st.session_state.respostas_usadas[categoria].append(resposta)
-
-    resposta_final = humores[humor_hoje](resposta)
-
-    st.markdown("---")
-    st.markdown(f"{resposta_final}")
