@@ -224,32 +224,55 @@ def salvar_pergunta(pergunta):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         f.write(f"[{timestamp}] {pergunta}\n")
 
-# --- INTERFACE ---
+# --- CONTROLE DE ESTADO ---
+if "pergunta_respondida" not in st.session_state:
+    st.session_state.pergunta_respondida = False
+if "ultima_pergunta" not in st.session_state:
+    st.session_state.ultima_pergunta = ""
+if "resposta_final" not in st.session_state:
+    st.session_state.resposta_final = ""
+
 # --- INTERFACE ---
 pergunta = st.text_input("😺 Sua pergunta:")
 
-if pergunta:
-    # salva a pergunta secretamente no arquivo oculto
-    with open(".perguntas.txt", "a", encoding="utf-8") as f:
-        f.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | {pergunta}\n")
+# --- BOTÃO OCULTO: ativado só com palavra mágica
+palavra_magica = "_acessar_oraculo_interno_"
 
-    resposta = interpretar_personalizada(pergunta)
+if pergunta == palavra_magica:
+    if os.path.exists(".perguntas.txt"):
+        with open(".perguntas.txt", "r", encoding="utf-8") as f:
+            conteudo = f.read()
+        st.markdown("---")
+        st.download_button("📥 Baixar perguntas registradas", data=conteudo, file_name="perguntas.txt")
+    else:
+        st.info("Nenhuma pergunta registrada ainda.")
+else:
+    # processa a pergunta normalmente
+    if pergunta and pergunta != st.session_state.ultima_pergunta:
+        st.session_state.ultima_pergunta = pergunta
+        st.session_state.pergunta_respondida = False
 
-    if not resposta:
-        categoria = identificar_categoria(pergunta)
-        usadas = st.session_state.respostas_usadas[categoria]
-        disponiveis = [r for r in respostas_por_categoria[categoria] if r not in usadas]
+    if pergunta and not st.session_state.pergunta_respondida:
+        with open(".perguntas.txt", "a", encoding="utf-8") as f:
+            f.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | {pergunta}\n")
 
-        if not disponiveis:
-            usadas.clear()
-            disponiveis = respostas_por_categoria[categoria][:]
+        resposta = interpretar_personalizada(pergunta)
 
-        resposta = random.choice(disponiveis)
-        st.session_state.respostas_usadas[categoria].append(resposta)
+        if not resposta:
+            categoria = identificar_categoria(pergunta)
+            usadas = st.session_state.respostas_usadas[categoria]
+            disponiveis = [r for r in respostas_por_categoria[categoria] if r not in usadas]
 
-    resposta_final = humores[humor_hoje](resposta)
+            if not disponiveis:
+                usadas.clear()
+                disponiveis = respostas_por_categoria[categoria][:]
 
-    st.markdown("---")
-    st.markdown(f"{resposta_final}")
+            resposta = random.choice(disponiveis)
+            st.session_state.respostas_usadas[categoria].append(resposta)
 
+        st.session_state.resposta_final = humores[humor_hoje](resposta)
+        st.session_state.pergunta_respondida = True
 
+    if st.session_state.pergunta_respondida:
+        st.markdown("---")
+        st.markdown(st.session_state.resposta_final)
