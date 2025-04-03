@@ -225,35 +225,13 @@ def salvar_pergunta(pergunta):
         f.write(f"[{timestamp}] {pergunta}\n")
 
 # --- INTERFACE ---
+# --- INTERFACE ---
 pergunta = st.text_input("😺 Sua pergunta:")
 
-# Se a pessoa digitar um código secreto em vez de uma pergunta
-codigo_admin = "_acessar_oraculo_interno_"
-
-if pergunta == codigo_admin and os.path.exists("perguntas.txt"):
-    with open("perguntas.txt", "r", encoding="utf-8") as f:
-        conteudo = f.read()
-    st.download_button("📥 Baixar perguntas registradas", data=conteudo, file_name="perguntas.txt")
-else:
-    if pergunta:
-        salvar_pergunta(pergunta)
-        resposta = interpretar_personalizada(pergunta)
-        if not resposta:
-            categoria = identificar_categoria(pergunta)
-            usadas = st.session_state.respostas_usadas[categoria]
-            disponiveis = [r for r in respostas_por_categoria[categoria] if r not in usadas]
-            if not disponiveis:
-                usadas.clear()
-                disponiveis = respostas_por_categoria[categoria][:]
-            resposta = random.choice(disponiveis)
-            st.session_state.respostas_usadas[categoria].append(resposta)
-        resposta_final = humores[humor_hoje](resposta)
-        st.markdown("---")
-        st.markdown(f"{resposta_final}")
-
-
 if pergunta:
-    salvar_pergunta(pergunta)  # 👁 registro oculto das perguntas
+    # salva a pergunta secretamente no arquivo oculto
+    with open(".perguntas.txt", "a", encoding="utf-8") as f:
+        f.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | {pergunta}\n")
 
     resposta = interpretar_personalizada(pergunta)
 
@@ -273,7 +251,6 @@ if pergunta:
 
     st.markdown("---")
     st.markdown(f"{resposta_final}")
-
 
 if pergunta:
     resposta = interpretar_personalizada(pergunta)
